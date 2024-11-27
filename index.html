@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/source-code-pro/2.100/source-code-pro.min.css" rel="stylesheet">
+    <style>
+        html, body {
+            background: #e0e0e0;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+       
+        .container {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            padding: 5px;
+        }
+       
+        .logo {
+            font-size: 34px;
+            font-weight: bold;
+            animation: spin 6s linear infinite;
+            transform-style: preserve-3d;
+            display: inline-block;
+            background: linear-gradient(to bottom,
+                #FF0080,
+                #FF00FF,
+                #8000FF,
+                #0080FF
+            );
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            letter-spacing: 2px;
+            font-family: "Arial Black", Gadget, sans-serif;
+        }
+       
+        @keyframes spin {
+            0% { transform: rotateY(0deg); }
+            100% { transform: rotateY(360deg); }
+        }
+       
+        .links {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 20px;
+        }
+
+        .links-container {
+            display: flex;
+            gap: 15px;
+        }
+       
+        .links a {
+            color: #333;
+            text-decoration: none;
+            transition: all 0.5s ease;
+            font-family: 'Source Code Pro', monospace;
+            font-size: 16px;
+            letter-spacing: 0.5px;
+        }
+       
+        .links a:hover {
+            color: #007bff;
+            text-decoration: underline;
+            text-underline-offset: 4px;
+            letter-spacing: 3px;
+        }
+        .motd-container {
+            position: relative;
+            height: 20px;
+            align-self: flex-start;
+            margin-left: 4px;  /* Fine-tune to align with the G */
+        }
+        .motd {
+            font-family: 'Source Code Pro', monospace;
+            font-size: 14px;
+            color: #333;
+            opacity: 0;
+            animation: fadeInOut 9s infinite;
+            position: absolute;
+            white-space: nowrap;
+            transform: translateX(-50%);
+        }
+        #motd1 { animation-delay: 0s; }
+        #motd2 { animation-delay: 3s; }
+        #motd3 { animation-delay: 6s; }
+        @keyframes fadeInOut {
+            0%, 33%, 100% { opacity: 0; }
+            5%, 28% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">theoa.me</div>
+    </div>
+    <div class="links">
+        <div class="motd-container">
+            <span id="motd1" class="motd">I'm Theo Arnold.</span>
+            <span id="motd2" class="motd">This is my website.</span>
+            <span id="motd3" class="motd">Click one of the two links.</span>
+        </div>
+        <div class="links-container">
+            <a href="https://github.com/theoarnold">GitHub</a>
+            <a href="https://www.linkedin.com/in/theo-arnold/">LinkedIn</a>
+        </div>
+    </div>
+</body>
+</html>
