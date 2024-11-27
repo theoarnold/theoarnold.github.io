@@ -20,11 +20,17 @@
             padding: 5px;
         }
        
+        .logo-container {
+            animation: spin 6s linear infinite;
+            transform-style: preserve-3d;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
         .logo {
             font-size: 34px;
             font-weight: bold;
-            animation: spin 6s linear infinite;
-            transform-style: preserve-3d;
             display: inline-block;
             background: linear-gradient(to bottom,
                 #FF0080,
@@ -38,6 +44,14 @@
             text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
             letter-spacing: 2px;
             font-family: "Arial Black", Gadget, sans-serif;
+        }
+
+        .clock {
+            font-size: 14px;  /* Reduced from 20px to 14px */
+            font-weight: bold;
+            color: #333;
+            margin-top: 2px;  /* Reduced from 5px to 2px for better spacing */
+            font-family: 'Source Code Pro', monospace;
         }
        
         @keyframes spin {
@@ -107,18 +121,21 @@
         /* Mobile styles */
         @media screen and (max-width: 768px) {
             .logo {
-                font-size: calc(34px * 0.8);  /* 50% smaller than previous version */
+                font-size: calc(34px * 0.8);
+            }
+            
+            .clock {
+                font-size: calc(14px * 0.8);  /* Updated to match new base size */
             }
             
             .links a {
-                font-size: calc(16px * 0.8);  /* 50% smaller than previous version */
+                font-size: calc(16px * 0.8);
             }
             
             .motd {
-                font-size: calc(14px * 0.8);  /* 50% smaller than previous version */
+                font-size: calc(14px * 0.8);
             }
 
-            /* Adjust container spacing for smaller text */
             .links {
                 gap: 15px;
             }
@@ -127,7 +144,6 @@
                 gap: 10px;
             }
 
-            /* Adjust motd container height for smaller text */
             .motd-container {
                 height: 16px;
             }
@@ -136,7 +152,10 @@
 </head>
 <body>
     <div class="container">
-        <div class="logo">theoa.me</div>
+        <div class="logo-container">
+            <div class="logo">theoa.me</div>
+            <div class="clock" id="clock"></div>
+        </div>
     </div>
     <div class="links">
         <div class="motd-container">
@@ -149,5 +168,19 @@
             <a href="https://www.linkedin.com/in/theo-arnold/">LinkedIn</a>
         </div>
     </div>
+
+    <script>
+        function updateClock() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            document.getElementById('clock').textContent = `${hours}:${minutes}:${seconds}`;
+        }
+
+        // Update clock immediately and then every second
+        updateClock();
+        setInterval(updateClock, 1000);
+    </script>
 </body>
 </html>
