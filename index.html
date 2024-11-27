@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/source-code-pro/2.100/source-code-pro.min.css" rel="stylesheet">
     <style>
         html, body {
@@ -54,7 +55,7 @@
             align-items: flex-start;
             gap: 20px;
         }
-
+        
         .links-container {
             display: flex;
             gap: 15px;
@@ -75,12 +76,14 @@
             text-underline-offset: 4px;
             letter-spacing: 3px;
         }
+        
         .motd-container {
             position: relative;
             height: 20px;
             align-self: flex-start;
-            margin-left: 4px;  /* Fine-tune to align with the G */
+            margin-left: 4px;
         }
+        
         .motd {
             font-family: 'Source Code Pro', monospace;
             font-size: 14px;
@@ -91,12 +94,43 @@
             white-space: nowrap;
             transform: translateX(-50%);
         }
+        
         #motd1 { animation-delay: 0s; }
         #motd2 { animation-delay: 3s; }
         #motd3 { animation-delay: 6s; }
+        
         @keyframes fadeInOut {
             0%, 33%, 100% { opacity: 0; }
             5%, 28% { opacity: 1; }
+        }
+
+        /* Mobile styles */
+        @media screen and (max-width: 768px) {
+            .logo {
+                font-size: calc(34px * 1.6);  /* 60% bigger */
+            }
+            
+            .links a {
+                font-size: calc(16px * 1.6);  /* 60% bigger */
+            }
+            
+            .motd {
+                font-size: calc(14px * 1.6);  /* 60% bigger */
+            }
+
+            /* Adjust container spacing for larger text */
+            .links {
+                gap: 30px;
+            }
+            
+            .links-container {
+                gap: 25px;
+            }
+
+            /* Adjust motd container height for larger text */
+            .motd-container {
+                height: 32px;
+            }
         }
     </style>
 </head>
