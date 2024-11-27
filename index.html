@@ -46,11 +46,10 @@
             font-family: "Arial Black", Gadget, sans-serif;
         }
 
-        .clock {
-            font-size: 14px;  /* Reduced from 20px to 14px */
-            font-weight: bold;
+        .counter {
+            font-size: 14px;
             color: #333;
-            margin-top: 2px;  /* Reduced from 5px to 2px for better spacing */
+            margin-top: 2px;
             font-family: 'Source Code Pro', monospace;
         }
        
@@ -124,8 +123,8 @@
                 font-size: calc(34px * 0.8);
             }
             
-            .clock {
-                font-size: calc(14px * 0.8);  /* Updated to match new base size */
+            .counter {
+                font-size: calc(14px * 0.8);
             }
             
             .links a {
@@ -154,7 +153,7 @@
     <div class="container">
         <div class="logo-container">
             <div class="logo">theoa.me</div>
-            <div class="clock" id="clock"></div>
+            <div class="counter" id="counter"></div>
         </div>
     </div>
     <div class="links">
@@ -170,17 +169,49 @@
     </div>
 
     <script>
-        function updateClock() {
-            const now = new Date();
-            const hours = String(now.getHours()).padStart(2, '0');
-            const minutes = String(now.getMinutes()).padStart(2, '0');
-            const seconds = String(now.getSeconds()).padStart(2, '0');
-            document.getElementById('clock').textContent = `${hours}:${minutes}:${seconds}`;
+        // Get saved count from localStorage
+        let seconds = parseInt(localStorage.getItem('timeSpent')) || 0;
+        let counterId = null;
+        
+        function updateCounter() {
+            document.getElementById('counter').textContent = `Visited for ${seconds} seconds`;
         }
 
-        // Update clock immediately and then every second
-        updateClock();
-        setInterval(updateClock, 1000);
+        function startCounter() {
+            if (!counterId) {  // Only start if not already running
+                counterId = setInterval(() => {
+                    seconds++;
+                    localStorage.setItem('timeSpent', seconds.toString());
+                    updateCounter();
+                }, 1000);
+            }
+        }
+
+        function stopCounter() {
+            if (counterId) {
+                clearInterval(counterId);
+                counterId = null;
+            }
+        }
+
+        // Start counter when page becomes visible
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                stopCounter();
+            } else {
+                startCounter();
+            }
+        });
+
+        // Initial display and start
+        updateCounter();
+        startCounter();
+
+        // Cleanup when page is unloaded
+        window.addEventListener('beforeunload', () => {
+            stopCounter();
+            localStorage.setItem('timeSpent', seconds.toString());
+        });
     </script>
 </body>
 </html>
