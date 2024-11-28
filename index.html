@@ -18,7 +18,7 @@
         .container {
             position: absolute;
             top: 15px;
-            left: 40px; /* Changed from 15px to 40px to shift the logo right */
+            left: 40px; /* Desktop position */
             padding: 5px;
         }
        
@@ -121,6 +121,10 @@
 
         /* Mobile styles */
         @media screen and (max-width: 768px) {
+            .container {
+                left: 15px; /* Reset to original position on mobile */
+            }
+            
             .logo {
                 font-size: calc(34px * 0.8);
             }
