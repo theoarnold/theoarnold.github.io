@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <!-- Previous head content remains the same -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/source-code-pro/2.100/source-code-pro.min.css" rel="stylesheet">
     <style>
+        /* All previous styles remain the same */
         html, body {
             background: #e0e0e0;
             margin: 0;
@@ -169,19 +171,34 @@
     </div>
 
     <script>
-        // Get saved count from localStorage
+        // Get saved count from localStorage only once at start
         let seconds = parseInt(localStorage.getItem('timeSpent')) || 0;
         let counterId = null;
+        let startTime = Date.now();
         
         function updateCounter() {
+            if (seconds >= 10000) {
+                seconds = 0;
+                startTime = Date.now(); // Reset start time when counter resets
+            }
             document.getElementById('counter').textContent = `Visited for ${seconds} seconds`;
         }
 
+        function saveTime() {
+            // Calculate actual elapsed time
+            const elapsedSeconds = Math.floor((Date.now() - startTime) / 1000);
+            seconds += elapsedSeconds;
+            localStorage.setItem('timeSpent', seconds.toString());
+            startTime = Date.now(); // Reset start time after saving
+        }
+
         function startCounter() {
-            if (!counterId) {  // Only start if not already running
+            if (!counterId) {
+                startTime = Date.now();
                 counterId = setInterval(() => {
-                    seconds++;
-                    localStorage.setItem('timeSpent', seconds.toString());
+                    const elapsedSeconds = Math.floor((Date.now() - startTime) / 1000);
+                    seconds += elapsedSeconds;
+                    startTime = Date.now();
                     updateCounter();
                 }, 1000);
             }
@@ -191,10 +208,11 @@
             if (counterId) {
                 clearInterval(counterId);
                 counterId = null;
+                saveTime(); // Save when stopping
             }
         }
 
-        // Start counter when page becomes visible
+        // Handle visibility changes
         document.addEventListener('visibilitychange', () => {
             if (document.hidden) {
                 stopCounter();
@@ -203,15 +221,14 @@
             }
         });
 
+        // Handle page unload
+        window.addEventListener('beforeunload', () => {
+            stopCounter();
+        });
+
         // Initial display and start
         updateCounter();
         startCounter();
-
-        // Cleanup when page is unloaded
-        window.addEventListener('beforeunload', () => {
-            stopCounter();
-            localStorage.setItem('timeSpent', seconds.toString());
-        });
     </script>
 </body>
 </html>
