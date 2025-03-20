@@ -1,6 +1,10 @@
 /* Home page specific styles */
 html, body {
     background: #e0e0e0;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
 }
 
 .links {
@@ -10,23 +14,26 @@ html, body {
     transform: translate(-50%, -50%);
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center; /* Change from flex-start to center */
+    justify-content: center;
     gap: 20px;
     background-color: #e0e0e0;
     padding: 25px 30px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-    min-width: 300px;
+    min-width: 400px;
+    box-sizing: border-box;
 }
 
 .links-container {
     display: flex;
     gap: 15px;
+    width: 100%;
 }
 
 .links a {
     color: #333;
-    text-decoration: none;
+    text-decoration: underline;
     transition: all 0.5s ease;
     font-family: 'Space Mono', monospace;
     font-size: 15px;
@@ -35,17 +42,16 @@ html, body {
 
 .links a:hover {
     color: #007bff;
-    text-decoration: underline;
     text-underline-offset: 4px;
     letter-spacing: 3px;
 }
 
 .motd-container {
     position: relative;
-    height: 30px;
-    width: 100%;
-    align-self: center;
-    text-align: center;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     margin-bottom: 10px;
 }
 
@@ -72,20 +78,20 @@ html, body {
 
 /* Mobile styles */
 @media screen and (max-width: 768px) {
-    .motd {
-        font-size: 18px;
-    }
-
     .links {
+        padding: 20px;
         gap: 15px;
-        margin-top: 40px; /* Add space for navbar */
+    }
+    
+    .motd-container {
+        height: 26px; /* Slightly reduced height for better fit */
+    }
+    
+    .motd {
+        font-size: 16px; /* Slightly smaller font size for narrow screens */
     }
     
     .links-container {
-        gap: 10px;
-    }
-
-    .motd-container {
-        height: 16px;
+        gap: 12px;
     }
 }
