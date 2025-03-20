@@ -1,0 +1,91 @@
+/* Home page specific styles */
+html, body {
+    background: #e0e0e0;
+}
+
+.links {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    background-color: #e0e0e0;
+    padding: 25px 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    min-width: 300px;
+}
+
+.links-container {
+    display: flex;
+    gap: 15px;
+}
+
+.links a {
+    color: #333;
+    text-decoration: none;
+    transition: all 0.5s ease;
+    font-family: 'Space Mono', monospace;
+    font-size: 15px;
+    letter-spacing: 0.5px;
+}
+
+.links a:hover {
+    color: #007bff;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    letter-spacing: 3px;
+}
+
+.motd-container {
+    position: relative;
+    height: 30px;
+    width: 100%;
+    align-self: center;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.motd {
+    font-family: 'Space Mono', monospace;
+    font-size: 17px;
+    color: #333;
+    opacity: 0;
+    animation: fadeInOut 9s infinite;
+    position: absolute;
+    white-space: nowrap;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+#motd1 { animation-delay: 0s; }
+#motd2 { animation-delay: 3s; }
+#motd3 { animation-delay: 6s; }
+
+@keyframes fadeInOut {
+    0%, 33%, 100% { opacity: 0; }
+    5%, 28% { opacity: 1; }
+}
+
+/* Mobile styles */
+@media screen and (max-width: 768px) {
+    .motd {
+        font-size: 18px;
+    }
+
+    .links {
+        gap: 15px;
+        margin-top: 40px; /* Add space for navbar */
+    }
+    
+    .links-container {
+        gap: 10px;
+    }
+
+    .motd-container {
+        height: 16px;
+    }
+}

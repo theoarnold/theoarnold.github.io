@@ -1,0 +1,53 @@
+/* Base styles */
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+}
+
+/* Navbar styling */
+.navbar {
+    background-color: #555;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 15px;
+    box-sizing: border-box;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+}
+
+.logo {
+    font-size: 18px;
+    color: #fff;
+    font-family: 'Space Mono', monospace;
+}
+
+.counter {
+    font-size: 12px;
+    color: #fff;
+    font-family: 'Space Mono', monospace;
+    text-align: right;
+}
+
+/* Animation keyframes */
+@keyframes spin {
+    0% { transform: rotateY(0deg); }
+    100% { transform: rotateY(360deg); }
+}
+
+/* Mobile styles */
+@media screen and (max-width: 768px) {
+    .logo {
+        font-size: 16px;
+    }
+    
+    .counter {
+        font-size: 12px;
+    }
+}

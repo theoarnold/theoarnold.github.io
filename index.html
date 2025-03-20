@@ -1,238 +1,34 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <!-- Previous head content remains the same -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/source-code-pro/2.100/source-code-pro.min.css" rel="stylesheet">
-    <style>
-        /* All previous styles remain the same */
-        html, body {
-            background: #e0e0e0;
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            overflow: hidden;
-            font-family: Arial, sans-serif;
-        }
-       
-        .container {
-            position: absolute;
-            top: 15px;
-            left: 40px; /* Desktop position */
-            padding: 5px;
-        }
-       
-        .logo-container {
-            animation: spin 6s linear infinite;
-            transform-style: preserve-3d;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 34px;
-            font-weight: bold;
-            display: inline-block;
-            background: linear-gradient(to bottom,
-                #FF0080,
-                #FF00FF,
-                #8000FF,
-                #0080FF
-            );
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-            letter-spacing: 2px;
-            font-family: "Arial Black", Gadget, sans-serif;
-        }
-
-        .counter {
-            font-size: 12px;
-            color: #333;
-            margin-top: 2px;
-            font-family: 'Source Code Pro', monospace;
-        }
-       
-        @keyframes spin {
-            0% { transform: rotateY(0deg); }
-            100% { transform: rotateY(360deg); }
-        }
-       
-        .links {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 20px;
-        }
-        
-        .links-container {
-            display: flex;
-            gap: 15px;
-        }
-       
-        .links a {
-            color: #333;
-            text-decoration: none;
-            transition: all 0.5s ease;
-            font-family: 'Source Code Pro', monospace;
-            font-size: 16px;
-            letter-spacing: 0.5px;
-        }
-       
-        .links a:hover {
-            color: #007bff;
-            text-decoration: underline;
-            text-underline-offset: 4px;
-            letter-spacing: 3px;
-        }
-        
-        .motd-container {
-            position: relative;
-            height: 20px;
-            align-self: flex-start;
-            margin-left: 4px;
-        }
-        
-        .motd {
-            font-family: 'Source Code Pro', monospace;
-            font-size: 14px;
-            color: #333;
-            opacity: 0;
-            animation: fadeInOut 9s infinite;
-            position: absolute;
-            white-space: nowrap;
-            transform: translateX(-50%);
-        }
-        
-        #motd1 { animation-delay: 0s; }
-        #motd2 { animation-delay: 3s; }
-        #motd3 { animation-delay: 6s; }
-        
-        @keyframes fadeInOut {
-            0%, 33%, 100% { opacity: 0; }
-            5%, 28% { opacity: 1; }
-        }
-
-        /* Mobile styles */
-        @media screen and (max-width: 768px) {
-            .container {
-                left: 15px; /* Reset to original position on mobile */
-            }
-            
-            .logo {
-                font-size: calc(34px * 0.8);
-            }
-            
-            .counter {
-                font-size: calc(14px * 0.8);
-            }
-            
-            .links a {
-                font-size: calc(16px * 0.8);
-            }
-            
-            .motd {
-                font-size: calc(14px * 0.8);
-            }
-
-            .links {
-                gap: 15px;
-            }
-            
-            .links-container {
-                gap: 10px;
-            }
-
-            .motd-container {
-                height: 16px;
-            }
-        }
-    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Roboto+Mono&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/index.css">
 </head>
 <body>
-    <div class="container">
-        <div class="logo-container">
-            <div class="logo">theoa.me</div>
-            <div class="counter" id="counter"></div>
-        </div>
+    <div class="navbar">
+        <div class="logo">theoa.me</div>
+        <div class="counter" id="counter"></div>
     </div>
+    
     <div class="links">
         <div class="motd-container">
             <span id="motd1" class="motd">I'm Theo Arnold</span>
-            <span id="motd2" class="motd">This is theoa.me</span>
-            <span id="motd3" class="motd">It has 2 links 🔥🔥</span>
+            <span id="motd2" class="motd">Software Engineer @ Civica</span>
+            <span id="motd3" class="motd">This is my website</span>
         </div>
         <div class="links-container">
             <a href="https://github.com/theoarnold">GitHub</a>
             <a href="https://www.linkedin.com/in/theo-arnold/">LinkedIn</a>
         </div>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.fog.min.js"></script>
 
-    <script>
-        // Get saved count from localStorage only once at start
-        let seconds = parseInt(localStorage.getItem('timeSpent')) || 0;
-        let counterId = null;
-        let startTime = Date.now();
-        
-        function updateCounter() {
-            if (seconds >= 10000) {
-                seconds = 0;
-                startTime = Date.now(); // Reset start time when counter resets
-            }
-            document.getElementById('counter').textContent = `Visited for ${seconds} seconds`;
-        }
-
-        function saveTime() {
-            // Calculate actual elapsed time
-            const elapsedSeconds = Math.floor((Date.now() - startTime) / 1000);
-            seconds += elapsedSeconds;
-            localStorage.setItem('timeSpent', seconds.toString());
-            startTime = Date.now(); // Reset start time after saving
-        }
-
-        function startCounter() {
-            if (!counterId) {
-                startTime = Date.now();
-                counterId = setInterval(() => {
-                    const elapsedSeconds = Math.floor((Date.now() - startTime) / 1000);
-                    seconds += elapsedSeconds;
-                    startTime = Date.now();
-                    updateCounter();
-                }, 1000);
-            }
-        }
-
-        function stopCounter() {
-            if (counterId) {
-                clearInterval(counterId);
-                counterId = null;
-                saveTime(); // Save when stopping
-            }
-        }
-
-        // Handle visibility changes
-        document.addEventListener('visibilitychange', () => {
-            if (document.hidden) {
-                stopCounter();
-            } else {
-                startCounter();
-            }
-        });
-
-        // Handle page unload
-        window.addEventListener('beforeunload', () => {
-            stopCounter();
-        });
-
-        // Initial display and start
-        updateCounter();
-        startCounter();
-    </script>
+    <script src="scripts/counter.js"></script>
+    <script src="scripts/vanta-fog.js"></script>
 </body>
 </html>
